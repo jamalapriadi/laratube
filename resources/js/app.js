@@ -13,7 +13,7 @@ Vue.config.ignoredElements = ['video-js']
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('button-subscription', require('./components/button-subscription.vue').default);
 Vue.component('channel-uploads', require('./components/channel-uploads.vue').default);
-
+Vue.component('vote-component', require('./components/votes.vue').default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

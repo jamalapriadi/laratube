@@ -38,13 +38,7 @@
                         </div>
 
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M12.72 2c.15-.02.26.02.41.07c.56.19.83.79.66 1.35c-.17.55-1 3.04-1 3.58c0 .53.75 1 1.35 1h3c.6 0 1 .4 1 1s-2 7-2 7c-.17.39-.55 1-1 1H6V8h2.14c.41-.41 3.3-4.71 3.58-5.27c.21-.41.6-.68 1-.73zM2 8h2v9H2V8z" fill="#626262"/></svg>
-
-                            23k
-
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 20 20"><path d="M7.28 18c-.15.02-.26-.02-.41-.07c-.56-.19-.83-.79-.66-1.35c.17-.55 1-3.04 1-3.58c0-.53-.75-1-1.35-1h-3c-.6 0-1-.4-1-1s2-7 2-7c.17-.39.55-1 1-1H14v9h-2.14c-.41.41-3.3 4.71-3.58 5.27c-.21.41-.6.68-1 .73zM18 12h-2V3h2v9z" fill="#626262"/></svg>
-                            
-                            0
+                            <vote-component entity_id="{{$video->id}}" :default_votes="{{$video->votes}}" entity_owner="{{$video->channel->user_id}}"></vote-component>
                         </div>
                     </div>
 
@@ -54,8 +48,8 @@
                             <img src="" alt="" width="50" height="50" class="rounded-circle mr-3">
 
                             <div class="media-body ml-2">
-                                <h5 class="mt-0 mb-0">Media Heading</h5>
-                                <span class="small">Published on 21 Ags 2020</span>
+                                <h5 class="mt-0 mb-0">{{$video->channel->name}}</h5>
+                                <span class="small">Published on {{$video->created_at->diffForHumans()}}</span>
                             </div>
                         </div>
                     </div>
@@ -65,6 +59,33 @@
 
                 </div>
             </div>
+
+            
+
+            @if($video->edittable())
+                <form action="{{ route('videos.update', $video->id) }}" method="post">
+                    @csrf
+                    @method("put")
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="form-group">
+                            <input type="text" name="title" value="{{$video->title}}" class="form-control" style="border:none;">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea name="description" id="description" cols="3" rows="4" class="form-control">{{$video->description}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="text-right">
+                            <button class="btn btn-primary text-white">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            @endif
         </div>
     </div>
 </div>
